@@ -1,0 +1,40 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.12">
+  <POU Name="MAIN" Id="{3edb032b-a82f-48bc-926b-2ac14e694195}" SpecialFunc="None">
+    <Declaration><![CDATA[PROGRAM MAIN
+VAR
+	Q01: BOOL;
+	S01: BOOL;
+	S02: BOOL;
+	Q02: BOOL;
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[(*
+Twee signalen (2 regels code)
+
+Men wil de signalen S01 en S02 met elkaar vergelijken.
+    Als S01=1 en S02=0 moet Q01 branden
+    Als S01=0 en S02=1 moet Q02 branden
+    Als S01=0 en S02=0 moet Q01 en Q02 branden
+    Als S01=1 en S02=1 moet Q01 en Q02 niet branden
+Denk goed na over deze oefening en schrijf deze in maximaal twee regels.
+*)
+
+Q01 := (S01 AND NOT S02) OR (NOT S01 AND NOT S02);
+Q02 := (NOT S01 AND S02) OR (NOT S01 AND NOT S02);]]></ST>
+    </Implementation>
+    <LineIds Name="MAIN">
+      <LineId Id="2" Count="0" />
+      <LineId Id="24" Count="0" />
+      <LineId Id="23" Count="0" />
+      <LineId Id="7" Count="0" />
+      <LineId Id="9" Count="3" />
+      <LineId Id="6" Count="0" />
+      <LineId Id="14" Count="0" />
+      <LineId Id="16" Count="0" />
+      <LineId Id="15" Count="0" />
+      <LineId Id="17" Count="0" />
+    </LineIds>
+  </POU>
+</TcPlcObject>

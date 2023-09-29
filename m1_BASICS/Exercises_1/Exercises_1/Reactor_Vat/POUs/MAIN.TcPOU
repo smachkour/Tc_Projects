@@ -1,0 +1,50 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.12">
+  <POU Name="MAIN" Id="{4206e8e7-bbcd-4aa1-bfb0-17584c918b69}" SpecialFunc="None">
+    <Declaration><![CDATA[PROGRAM MAIN
+VAR
+	
+// Outputs
+	Q01 AT %Q*: BOOL; // Lamp 1	
+	Q02 AT %Q*: BOOL; // Lamp 2 
+	Q03 AT %Q*: BOOL; // Bel
+	
+// Inputs
+	S01 AT %I*: BOOL; // Hoofdschakelaar
+	S02 AT %I*: BOOL; // Vebreekcontact
+	S03 AT %I*: BOOL; // Niveau Detectie
+	S04 AT %I*: BOOL; // Thermostaat
+	S05 AT %I*: BOOL; // Druksensor
+	
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[(*
+Reactorvat (3 regels code)
+
+    De installatie zal pas werken als een hoofdschakelaar S01 AAN staat (maakcontact).
+    Als het niveau in het vat te hoog is, reageert detector S03.
+    Als de temperatuur boven een bepaalde waarde stijgt reageert thermostaat S04.
+    Als de druk boven een bepaalde waarde stijgt reageert druksensor S05.
+    Als één van de drie detectoren (S03, S04, S05) reageert moet een oranje lamp Q01 branden.
+    Als twee van de drie detectoren reageert moet een rode lamp Q02 branden.
+    Als de detectoren alle drie reageren moeten beide lampen branden en ook een bel Q03 rinkelen.
+    De bel blijft rinkelen tot de stopdrukknop S02 ingedrukt wordt (verbreekcontact).
+*)
+
+Q01 := S01 AND (S03 OR S04 OR S05);
+Q02 := S01 AND (S03 AND S04) OR (S03 AND S05) OR (S04 AND S05);
+Q03 := S01 AND S03 AND S04 AND S05 AND NOT S02;]]></ST>
+    </Implementation>
+    <LineIds Name="MAIN">
+      <LineId Id="2" Count="0" />
+      <LineId Id="7" Count="8" />
+      <LineId Id="6" Count="0" />
+      <LineId Id="16" Count="0" />
+      <LineId Id="18" Count="0" />
+      <LineId Id="17" Count="0" />
+      <LineId Id="19" Count="0" />
+      <LineId Id="21" Count="0" />
+    </LineIds>
+  </POU>
+</TcPlcObject>
