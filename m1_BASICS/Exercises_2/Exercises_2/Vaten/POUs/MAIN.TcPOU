@@ -1,0 +1,55 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.12">
+  <POU Name="MAIN" Id="{eecad5b9-cf71-428e-9e98-f01a524fa0c8}" SpecialFunc="None">
+    <Declaration><![CDATA[PROGRAM MAIN
+VAR
+// Analoge ingangen
+	nSensor1              AT %I*:LREAL;
+	nSensor2              AT %I*:LREAL;
+	nSensor3              AT %I*:LREAL;
+	
+// Analoge uitgangen
+	nVat1                 AT %Q*:LREAL;//MAX2000L
+    nVat2                 AT %Q*:LREAL;//MAX3000L
+	nVat3                 AT %Q*:LREAL;//MAX5000L
+	nBardisplay           AT %Q*:LREAL;
+	
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[(*
+Vaten
+
+De inhoud van 3 vaten wordt afzonderlijk gemeten en kunnen maximaal 2000L, 3000L en 5000L bevatten. 
+De waarde die men inleest is de hoeveelheid die zich in het vat bevindt (nVat1, nVat2 en nVat3). 
+
+Simuleer deze ingangen. 
+Bouw een visualisatie die de inhoud van elke tank afzonderlijk alsook de som weergeeft. 
+Maak gebruik van 3 sliders en 1 bar display. Houd eveneens rekening met de maximum waarden.
+*)
+
+// BELANGRIJK:
+// Controleer de instellingen/verschalingen bij de visualisatie voor een beter begrip
+
+nVat1:=100.0*(nSensor1/2000.0);
+nVat2:=100.0*(nSensor2/3000.0);
+nVat3:=100.0*(nSensor3/5000.0);
+nBardisplay:=nVat1+nVat2+nVat3;]]></ST>
+    </Implementation>
+    <LineIds Name="MAIN">
+      <LineId Id="21" Count="0" />
+      <LineId Id="29" Count="2" />
+      <LineId Id="33" Count="0" />
+      <LineId Id="32" Count="0" />
+      <LineId Id="28" Count="0" />
+      <LineId Id="34" Count="1" />
+      <LineId Id="27" Count="0" />
+      <LineId Id="38" Count="0" />
+      <LineId Id="22" Count="0" />
+      <LineId Id="40" Count="0" />
+      <LineId Id="39" Count="0" />
+      <LineId Id="6" Count="2" />
+      <LineId Id="2" Count="0" />
+    </LineIds>
+  </POU>
+</TcPlcObject>

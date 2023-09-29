@@ -1,0 +1,42 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.12">
+  <POU Name="MAIN" Id="{515c9417-5294-459d-8fff-520118de748d}" SpecialFunc="None">
+    <Declaration><![CDATA[PROGRAM MAIN
+VAR
+
+    fPotmeter: REAL; // De gemeten waarde van de potentiometer (0 tot 32767)
+    displayValue: INT; // De waarde om weer te geven op het display (-100 tot +2000)
+
+
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[(*
+Display_100 (2 regels)
+
+Toon het voltage dat over de potentiometer staat op het display. Dit is een spanning met een maximale spanning van 10v, tevens de maximum inleesbare spanning van de EL3062 kaart die we gebruiken.
+
+Opmerking: het fysieke display dat wij gebruiken is ingesteld om de waarden van -100 tot +2.000 weer te geven voor de respectievelijk 0v tot 10v spanning die het binnenkrijgt.
+*)
+
+// Omrekenen van de gemeten waarde naar de display waarde
+displayValue := TO_INT((fPotmeter / 32767.0) * (2000 - (-100)) + (-100));
+
+
+
+]]></ST>
+    </Implementation>
+    <LineIds Name="MAIN">
+      <LineId Id="7" Count="0" />
+      <LineId Id="23" Count="3" />
+      <LineId Id="22" Count="0" />
+      <LineId Id="21" Count="0" />
+      <LineId Id="31" Count="0" />
+      <LineId Id="29" Count="1" />
+      <LineId Id="28" Count="0" />
+      <LineId Id="27" Count="0" />
+      <LineId Id="8" Count="0" />
+      <LineId Id="2" Count="0" />
+    </LineIds>
+  </POU>
+</TcPlcObject>

@@ -1,0 +1,35 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.12">
+  <POU Name="MAIN" Id="{572a745a-a627-4950-a756-b2359160babc}" SpecialFunc="None">
+    <Declaration><![CDATA[PROGRAM MAIN
+VAR
+	Waarde: BYTE;
+	potentiometer: INT;
+	nScaledMax: INT := 10;
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[(*
+Potentiometer inlezen met visualisatie
+Gebruik een visualisatie om de maximumwaarde en de output te tonen, alsook om de maximumwaarde te verschalen.
+Rechtermuisklik op de folder VISU, selecteer 'add new' en vervolgens een VISUALISATION. Sleep vanuit de toolbox twee rectangles naar het canvas. 
+Via properties window configureer je deze rectangles om de maximumwaarde nScaledMax te tonen en in te geven, en om de verschaalde output te tonen in de visu. 
+*)
+
+Waarde:=LREAL_TO_BYTE(nScaledMax*(potentiometer/32767.0));
+
+]]></ST>
+    </Implementation>
+    <LineIds Name="MAIN">
+      <LineId Id="13" Count="0" />
+      <LineId Id="20" Count="0" />
+      <LineId Id="15" Count="0" />
+      <LineId Id="17" Count="0" />
+      <LineId Id="12" Count="0" />
+      <LineId Id="21" Count="1" />
+      <LineId Id="2" Count="0" />
+      <LineId Id="10" Count="0" />
+      <LineId Id="6" Count="0" />
+    </LineIds>
+  </POU>
+</TcPlcObject>

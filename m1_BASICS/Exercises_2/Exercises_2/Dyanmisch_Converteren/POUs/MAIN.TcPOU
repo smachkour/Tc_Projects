@@ -1,0 +1,30 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.12">
+  <POU Name="MAIN" Id="{674d2829-09d5-468e-a4ba-90184b9a8337}" SpecialFunc="None">
+    <Declaration><![CDATA[PROGRAM MAIN
+VAR
+	Waarde: BYTE;
+	nScaledMax: INT := 10;
+	potentiometer: INT;
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[(*
+Declareer een variabele van het type INT, met de naam nScaledMax en een initial value van 10. Gebruik hiervoor de Auto Declare functie (zie afbeelding). 
+Vervolgens schrijf je de code om de potentiometer-waarde te verschalen naar een getal tussen 0 en nScaledMax.
+*)
+
+Waarde:=LREAL_TO_BYTE(nScaledMax*(potentiometer/32767.0));
+]]></ST>
+    </Implementation>
+    <LineIds Name="MAIN">
+      <LineId Id="12" Count="0" />
+      <LineId Id="14" Count="0" />
+      <LineId Id="10" Count="0" />
+      <LineId Id="15" Count="0" />
+      <LineId Id="11" Count="0" />
+      <LineId Id="2" Count="0" />
+      <LineId Id="6" Count="0" />
+    </LineIds>
+  </POU>
+</TcPlcObject>

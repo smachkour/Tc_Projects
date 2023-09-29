@@ -1,13 +1,28 @@
-<?xml version="1.0" encoding="utf-8"?>
-<TcPlcObject Version="1.1.0.1">
-  <POU Name="MAIN" Id="{dbd9d2a5-fc61-49b0-b1c6-67cdcddd58c8}">
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.12">
+  <POU Name="MAIN" Id="{dbd9d2a5-fc61-49b0-b1c6-67cdcddd58c8}" SpecialFunc="None">
     <Declaration><![CDATA[PROGRAM MAIN
 VAR
+	Waarde: BYTE;
+	potentiometer: INT;
 END_VAR
-]]>
-    </Declaration>
+]]></Declaration>
     <Implementation>
-      <ST><![CDATA[]]></ST>
+      <ST><![CDATA[(*
+Potentiometer inlezen (maximaal 1 regels)
+
+Lees de potentiometer in en verschaal deze waarden naar een getal tussen 0 en 100.
+*)
+Waarde:=LREAL_TO_BYTE(100*(potentiometer/32767.0));
+]]></ST>
     </Implementation>
+    <LineIds Name="MAIN">
+      <LineId Id="6" Count="0" />
+      <LineId Id="8" Count="0" />
+      <LineId Id="7" Count="0" />
+      <LineId Id="2" Count="0" />
+      <LineId Id="9" Count="1" />
+      <LineId Id="16" Count="0" />
+    </LineIds>
   </POU>
 </TcPlcObject>

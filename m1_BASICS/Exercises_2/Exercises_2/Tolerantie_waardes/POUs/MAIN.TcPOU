@@ -1,0 +1,41 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.12">
+  <POU Name="MAIN" Id="{30bbc054-f4e5-43b8-bb2e-8357e8fd68ab}" SpecialFunc="None">
+    <Declaration><![CDATA[PROGRAM MAIN
+VAR
+	
+// Inputs
+	nGemeten AT %I*: REAL; // Fysieke potentiometer 
+	nGevraagd     : INT; // gevraagde waarde ( Visualisatie)
+	
+// Outputs
+	groeneLamp    AT %Q*:BOOL;
+	rodeLamp      AT %Q*:BOOL;
+	
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[(*
+Tolerantiewaardes (2 regels)
+
+Lees een fysieke potentiometer in als de variabele nGemeten en een potiometer via de visualisatie in als nGevraagd. 
+
+Als de gemeten waarde kleiner is dan de gewenste waarde met een tolerantie van 10%, dan moet de rode lamp branden. 
+
+Als de gemeten waarde groter is dan de gewenste waarde met een tolerantie van 10%, dan moet de groene lamp branden.
+*)
+
+rodeLamp	:=(nGevraagd-(10*(nGevraagd/100))) > (100*nGemeten/32767); // Berekend waarde 10% minder THEN gevraagde waarde -> LAMP AAN
+groeneLamp	:=(nGevraagd+(10*(nGevraagd/100))) < (100*nGemeten/32767); // Berekend waarde 10% meer   THEN gevraagde waarde -> LAMP AAN]]></ST>
+    </Implementation>
+    <LineIds Name="MAIN">
+      <LineId Id="2" Count="0" />
+      <LineId Id="34" Count="5" />
+      <LineId Id="33" Count="0" />
+      <LineId Id="32" Count="0" />
+      <LineId Id="43" Count="0" />
+      <LineId Id="42" Count="0" />
+      <LineId Id="41" Count="0" />
+    </LineIds>
+  </POU>
+</TcPlcObject>

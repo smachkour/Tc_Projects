@@ -1,0 +1,46 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.12">
+  <POU Name="MAIN" Id="{5926a836-9a64-497f-a298-4b90e981372c}" SpecialFunc="None">
+    <Declaration><![CDATA[PROGRAM MAIN
+VAR
+	
+// Inputs	
+	druk: INT;
+	temperatuur: INT;
+	niveau: INT;
+	
+// Outputs	
+	Lamp1: BOOL;
+	Lamp2: BOOL;
+	Lamp3: BOOL;
+	Lamp4: BOOL;
+	Lamp5: BOOL;
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[(*
+Alarmbewaking (5 regels code)
+
+We herhalen de oefening van de alarmbewaking. We maken nu echter gebruik van simpele analoge sensoren. 
+We moeten nu de drempelwaarden die we normaal in onze smart sensor zouden ingesteld hebben aan het programma moeten meegeven. 
+Deze zijn voor de druk, temperatuur en vloeistofniveau respectievelijk 12, 80 en 22. 
+Het programma dat we geschreven hebben voor onze 5 lampen blijft zo goed als hetzelfde.
+*)
+Lamp1 := druk > 12;
+Lamp2 := temperatuur > 80;
+Lamp3 := niveau < 22;
+Lamp4 := (Lamp1 AND Lamp2) OR (Lamp1 AND Lamp3) OR (Lamp2 AND Lamp3);
+Lamp5 := Lamp1 AND Lamp2 AND Lamp3;
+]]></ST>
+    </Implementation>
+    <LineIds Name="MAIN">
+      <LineId Id="26" Count="0" />
+      <LineId Id="29" Count="1" />
+      <LineId Id="28" Count="0" />
+      <LineId Id="32" Count="2" />
+      <LineId Id="27" Count="0" />
+      <LineId Id="6" Count="4" />
+      <LineId Id="2" Count="0" />
+    </LineIds>
+  </POU>
+</TcPlcObject>

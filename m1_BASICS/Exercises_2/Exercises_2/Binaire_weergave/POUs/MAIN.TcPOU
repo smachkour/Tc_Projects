@@ -1,0 +1,21 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.12">
+  <POU Name="MAIN" Id="{716b76db-7100-4c9a-91e3-d41f663d3103}" SpecialFunc="None">
+    <Declaration><![CDATA[PROGRAM MAIN
+VAR
+	
+    fPotmeter: INT := 0; // Gemeten waarde van potentiometer (0 tot 32767)
+    bValue: BYTE; // Geconverteerde waarde (0 tot 15)
+
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[bValue := TO_BYTE((fPotmeter * 15) / 32767);
+]]></ST>
+    </Implementation>
+    <LineIds Name="MAIN">
+      <LineId Id="12" Count="0" />
+      <LineId Id="2" Count="0" />
+    </LineIds>
+  </POU>
+</TcPlcObject>

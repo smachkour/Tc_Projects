@@ -1,4 +1,155 @@
 <?xml version="1.0"?>
-<TcSmProject>
-	<Project/>
+<TcSmProject xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://www.beckhoff.com/schemas/2012/07/TcSmProject" TcSmVersion="1.0" TcVersion="3.1.4024.50">
+	<Project ProjectGUID="{0F57FCDB-9F50-4F7D-BCEF-2A46D65D9CA5}" Target64Bit="true" ShowHideConfigurations="#x6">
+		<System>
+			<Tasks>
+				<Task Id="3" Priority="20" CycleTime="100000" AmsPort="350" AdtTasks="true">
+					<Name>PlcTask</Name>
+				</Task>
+				<Task Id="4" Priority="21" CycleTime="100000" AmsPort="351" AdtTasks="true">
+					<Name>PlcTask1</Name>
+				</Task>
+				<Task Id="5" Priority="22" CycleTime="100000" AmsPort="352" AdtTasks="true">
+					<Name>PlcTask2</Name>
+				</Task>
+				<Task Id="6" Priority="26" CycleTime="100000" AmsPort="353" AdtTasks="true">
+					<Name>PlcTask3</Name>
+				</Task>
+				<Task Id="7" Priority="25" CycleTime="100000" AmsPort="354" AdtTasks="true">
+					<Name>PlcTask4</Name>
+				</Task>
+				<Task Id="8" Priority="24" CycleTime="100000" AmsPort="355" AdtTasks="true">
+					<Name>PlcTask5</Name>
+				</Task>
+				<Task Id="9" Priority="23" CycleTime="100000" AmsPort="356" AdtTasks="true">
+					<Name>PlcTask6</Name>
+				</Task>
+				<Task Id="10" Priority="27" CycleTime="100000" AmsPort="357" AdtTasks="true">
+					<Name>PlcTask7</Name>
+				</Task>
+			</Tasks>
+		</System>
+		<Plc>
+			<Project GUID="{03289C2E-FAD6-48CF-A339-4EE2B33E5391}" Name="Potentiometer_Inlezen" PrjFilePath="Potentiometer_Inlezen\Potentiometer_Inlezen.plcproj" TmcFilePath="Potentiometer_Inlezen\Potentiometer_Inlezen.tmc" ReloadTmc="true" AmsPort="851" FileArchiveSettings="#x000e" SymbolicMapping="true">
+				<Instance Id="#x08502000" TcSmClass="TComPlcObjDef" KeepUnrestoredLinks="2" TmcPath="Potentiometer_Inlezen\Potentiometer_Inlezen.tmc" TmcHash="{9F311B9B-07AE-DFB2-2E86-B28D88BEB5A1}">
+					<Name>Potentiometer_Inlezen Instance</Name>
+					<CLSID ClassFactory="TcPlc30">{08500001-0000-0000-F000-000000000064}</CLSID>
+					<Contexts>
+						<Context>
+							<Id>0</Id>
+							<Name>PlcTask</Name>
+							<ManualConfig>
+								<OTCID>#x02010030</OTCID>
+							</ManualConfig>
+							<Priority>20</Priority>
+							<CycleTime>10000000</CycleTime>
+						</Context>
+					</Contexts>
+					<TaskPouOids>
+						<TaskPouOid Prio="20" OTCID="#x08502001"/>
+					</TaskPouOids>
+				</Instance>
+			</Project>
+			<Project GUID="{6E3A0D06-F6F3-4290-A94F-EB9C354ACB8A}" Name="Dyanmisch_Converteren" PrjFilePath="Dyanmisch_Converteren\Dyanmisch_Converteren.plcproj" TmcFilePath="Dyanmisch_Converteren\Dyanmisch_Converteren.tmc" ReloadTmc="true" AmsPort="852" FileArchiveSettings="#x000e" SymbolicMapping="true">
+				<Instance Id="#x08502040" TcSmClass="TComPlcObjDef" KeepUnrestoredLinks="2" TmcPath="Dyanmisch_Converteren\Dyanmisch_Converteren.tmc" TmcHash="{A7FAE118-BA07-B016-DF26-2B7CEFAB0476}">
+					<Name>Dyanmisch_Converteren Instance</Name>
+					<CLSID ClassFactory="TcPlc30">{08500001-0000-0000-F000-000000000064}</CLSID>
+					<Contexts>
+						<Context>
+							<Id>0</Id>
+							<Name>PlcTask</Name>
+							<ManualConfig>
+								<OTCID>#x02010040</OTCID>
+							</ManualConfig>
+							<Priority>21</Priority>
+							<CycleTime>10000000</CycleTime>
+						</Context>
+					</Contexts>
+					<TaskPouOids>
+						<TaskPouOid Prio="21" OTCID="#x08502041"/>
+					</TaskPouOids>
+				</Instance>
+			</Project>
+			<Project GUID="{44FAC65F-7564-4788-AEE1-CA3C65E046EA}" Name="Potentiometer_Inlezen_VISU" PrjFilePath="Potentiometer_Inlezen_VISU\Potentiometer_Inlezen_VISU.plcproj" TmcFilePath="Potentiometer_Inlezen_VISU\Potentiometer_Inlezen_VISU.tmc" ReloadTmc="true" AmsPort="853" FileArchiveSettings="#x000e" SymbolicMapping="true">
+				<Instance Id="#x08502080" TcSmClass="TComPlcObjDef" KeepUnrestoredLinks="2" TmcPath="Potentiometer_Inlezen_VISU\Potentiometer_Inlezen_VISU.tmc" TmcHash="{3E4111C8-D6E2-689C-D736-4E9F92CA908F}">
+					<Name>Potentiometer_Inlezen_VISU Instance</Name>
+					<CLSID ClassFactory="TcPlc30">{08500001-0000-0000-F000-000000000064}</CLSID>
+					<Contexts>
+						<Context>
+							<Id>0</Id>
+							<Name>PlcTask</Name>
+							<ManualConfig>
+								<OTCID>#x02010050</OTCID>
+							</ManualConfig>
+							<Priority>22</Priority>
+							<CycleTime>10000000</CycleTime>
+						</Context>
+					</Contexts>
+					<TaskPouOids>
+						<TaskPouOid Prio="22" OTCID="#x08502081"/>
+					</TaskPouOids>
+				</Instance>
+			</Project>
+			<Project GUID="{F779E396-C68E-445E-A9FD-E125061FCE59}" Name="Alarmbewaking" PrjFilePath="Alarmbewaking\Alarmbewaking.plcproj" TmcFilePath="Alarmbewaking\Alarmbewaking.tmc" ReloadTmc="true" AmsPort="854" FileArchiveSettings="#x000e" SymbolicMapping="true">
+				<Instance Id="#x085020c0" TcSmClass="TComPlcObjDef" KeepUnrestoredLinks="2">
+					<Name>Alarmbewaking Instance</Name>
+					<CLSID ClassFactory="TcPlc30">{08500001-0000-0000-F000-000000000064}</CLSID>
+					<Contexts>
+						<Context>
+							<Id>1</Id>
+							<Name>Default</Name>
+						</Context>
+					</Contexts>
+				</Instance>
+			</Project>
+			<Project GUID="{4C13D2AA-7816-4FE0-862C-E084FA872AA6}" Name="Binaire_weergave" PrjFilePath="Binaire_weergave\Binaire_weergave.plcproj" TmcFilePath="Binaire_weergave\Binaire_weergave.tmc" ReloadTmc="true" AmsPort="855" FileArchiveSettings="#x000e" SymbolicMapping="true">
+				<Instance Id="#x08502100" TcSmClass="TComPlcObjDef" KeepUnrestoredLinks="2">
+					<Name>Binaire_weergave Instance</Name>
+					<CLSID ClassFactory="TcPlc30">{08500001-0000-0000-F000-000000000064}</CLSID>
+					<Contexts>
+						<Context>
+							<Id>1</Id>
+							<Name>Default</Name>
+						</Context>
+					</Contexts>
+				</Instance>
+			</Project>
+			<Project GUID="{7BFFF5C1-4C27-49C9-AF08-5DEECF80ADA6}" Name="Display_100" PrjFilePath="Display_100\Display_100.plcproj" TmcFilePath="Display_100\Display_100.tmc" ReloadTmc="true" AmsPort="856" FileArchiveSettings="#x000e" SymbolicMapping="true">
+				<Instance Id="#x08502140" TcSmClass="TComPlcObjDef" KeepUnrestoredLinks="2">
+					<Name>Display_100 Instance</Name>
+					<CLSID ClassFactory="TcPlc30">{08500001-0000-0000-F000-000000000064}</CLSID>
+					<Contexts>
+						<Context>
+							<Id>1</Id>
+							<Name>Default</Name>
+						</Context>
+					</Contexts>
+				</Instance>
+			</Project>
+			<Project GUID="{C0059EC4-F9AB-4DEA-AA90-0470B0FDAE56}" Name="Tolerantie_waardes" PrjFilePath="Tolerantie_waardes\Tolerantie_waardes.plcproj" TmcFilePath="Tolerantie_waardes\Tolerantie_waardes.tmc" ReloadTmc="true" AmsPort="857" FileArchiveSettings="#x000e" SymbolicMapping="true">
+				<Instance Id="#x08502180" TcSmClass="TComPlcObjDef" KeepUnrestoredLinks="2">
+					<Name>Tolerantie_waardes Instance</Name>
+					<CLSID ClassFactory="TcPlc30">{08500001-0000-0000-F000-000000000064}</CLSID>
+					<Contexts>
+						<Context>
+							<Id>1</Id>
+							<Name>Default</Name>
+						</Context>
+					</Contexts>
+				</Instance>
+			</Project>
+			<Project GUID="{06BB0CC5-F123-41A5-ADC8-D2794255A00F}" Name="Vaten" PrjFilePath="Vaten\Vaten.plcproj" TmcFilePath="Vaten\Vaten.tmc" ReloadTmc="true" AmsPort="858" FileArchiveSettings="#x000e" SymbolicMapping="true">
+				<Instance Id="#x085021c0" TcSmClass="TComPlcObjDef" KeepUnrestoredLinks="2">
+					<Name>Vaten Instance</Name>
+					<CLSID ClassFactory="TcPlc30">{08500001-0000-0000-F000-000000000064}</CLSID>
+					<Contexts>
+						<Context>
+							<Id>1</Id>
+							<Name>Default</Name>
+						</Context>
+					</Contexts>
+				</Instance>
+			</Project>
+		</Plc>
+	</Project>
 </TcSmProject>
