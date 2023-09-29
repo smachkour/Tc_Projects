@@ -1,0 +1,74 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.12">
+  <POU Name="MAIN" Id="{24a4da68-144c-4955-a486-8fd93fe7addf}" SpecialFunc="None">
+    <Declaration><![CDATA[PROGRAM MAIN
+VAR
+	
+// Inputs
+	S01 AT %I*: BOOL; // Sensor 1
+	S02 AT %I*: BOOL; // Sensor 2
+	S03 AT %I*: BOOL; // Sensor 3
+
+// Outputs
+	L1 AT %Q*: BOOL; // Lamp 1
+	L2 AT %Q*: BOOL; // Lamp 2
+	L3 AT %Q*: BOOL; // Lamp 3
+	L4 AT %Q*: BOOL; // Lamp 4
+	L5 AT %Q*: BOOL; // Lamp 5
+	Reset_DK AT %Q*: BOOL; // Reset Drukknop 1
+	
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[(*
+Alarmbewaking (6 regels code)
+
+In een vat wordt een proces bewaakt met 3 sensoren
+
+    Sensor1 meet de druk. TRUE bij een te hoge druk.
+    Sensor2 meet de temperatuur. TRUE bij een te hoge temperatuur.
+    Sensor3 meet het vloeistofniveau. FALSE bij een te laag niveau.
+
+Er zijn 5 lampen die als indicator dienen voor het proces:
+
+    Lamp1 gaat aan als de druk te hoog is.
+    Lamp2 gaat aan als de temperatuur te hoog is.
+    Lamp3 gaat aan als het niveau te laag is.
+    Bovenstaande lampen gaan automatisch uit als er geen melding meer gegeven hoeft te worden.
+	
+    Lamp4 gaat aan als er zich twee alarmen gelijktijdig voordoen. 
+	Van zodra er geen twee alarmen meer zijn gaat deze lamp uit. 
+	Bij drie alarmen gaat deze lamp ook uit.
+    Lamp5 gaat aan als er drie alarmen zijn. 
+	Deze lamp blijft aan, ook nadat er geen drie alarmen meer zijn. 
+	De lamp kan enkel uitgeschakeld worden met een extra drukknop.
+*)
+
+ 
+L1 := S01; // Drukalarm
+L2 := S02; // Temperatuuralarm
+L3 := NOT S03; // Niveau-Alarm
+L4 := (S01 AND S02 AND NOT S03) OR (S01 AND NOT S02 AND S03) OR (NOT S01 AND S02 AND S03); // Twee alarmen
+L5 := L5 OR (S01 AND S02 AND NOT S03); // Drie alarmen
+IF Reset_DK THEN L5 := FALSE; END_IF; // Reset Lamp5 enkel met drukknop
+]]></ST>
+    </Implementation>
+    <LineIds Name="MAIN">
+      <LineId Id="2" Count="0" />
+      <LineId Id="22" Count="13" />
+      <LineId Id="40" Count="0" />
+      <LineId Id="36" Count="0" />
+      <LineId Id="38" Count="1" />
+      <LineId Id="21" Count="0" />
+      <LineId Id="41" Count="1" />
+      <LineId Id="20" Count="0" />
+      <LineId Id="44" Count="1" />
+      <LineId Id="43" Count="0" />
+      <LineId Id="46" Count="1" />
+      <LineId Id="52" Count="0" />
+      <LineId Id="49" Count="0" />
+      <LineId Id="51" Count="0" />
+      <LineId Id="48" Count="0" />
+    </LineIds>
+  </POU>
+</TcPlcObject>

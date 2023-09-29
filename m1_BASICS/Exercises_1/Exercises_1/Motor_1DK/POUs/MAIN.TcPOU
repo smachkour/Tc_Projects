@@ -1,0 +1,49 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.12">
+  <POU Name="MAIN" Id="{07ce2104-48e2-40da-9fdc-74ccafe19003}" SpecialFunc="None">
+    <Declaration><![CDATA[PROGRAM MAIN
+VAR
+	
+// Inputs
+	HoofdSchakelaar: BOOL;
+	prevDrukKnop: BOOL;
+	DrukKnop: BOOL;
+	Teller: INT;
+
+// Outputs
+	MotorLinks: BOOL;
+	MotorRechts: BOOL;
+
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[(*
+Motor starten met één drukknop (4 regels code)
+
+Schrijf een programma om een motor [ Relais voor MotorLinks en MotorRechts ] te starten en te stoppen met één drukknop. 
+De installatie zal pas werken als een hoofdschakelaar AAN staat.
+
+    1e druk op de drukknop:	start links draaiend
+    2e druk op de drukknop:	stop
+    3e druk op de drukknop:	start rechts draaiend
+    4e druk op de drukknop:	stop
+*)
+
+IF HoofdSchakelaar AND NOT prevDrukKnop AND DrukKnop THEN Teller := (Teller + 1) MOD 4; END_IF;
+prevDrukKnop := DrukKnop;
+MotorLinks := HoofdSchakelaar AND Teller = 1;
+MotorRechts := HoofdSchakelaar AND Teller = 3;
+]]></ST>
+    </Implementation>
+    <LineIds Name="MAIN">
+      <LineId Id="6" Count="0" />
+      <LineId Id="16" Count="2" />
+      <LineId Id="23" Count="0" />
+      <LineId Id="19" Count="3" />
+      <LineId Id="15" Count="0" />
+      <LineId Id="2" Count="0" />
+      <LineId Id="33" Count="4" />
+      <LineId Id="24" Count="0" />
+    </LineIds>
+  </POU>
+</TcPlcObject>

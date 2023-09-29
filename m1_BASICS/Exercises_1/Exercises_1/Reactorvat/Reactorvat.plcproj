@@ -3,19 +3,19 @@
   <PropertyGroup>
     <FileVersion>1.0.0.0</FileVersion>
     <SchemaVersion>2.0</SchemaVersion>
-    <ProjectGuid>{7ac3cc47-b216-4113-bd9e-9e280c0731bd}</ProjectGuid>
+    <ProjectGuid>{add2957c-ec9c-49b6-8287-407c88ed67bc}</ProjectGuid>
     <SubObjectsSortedByName>True</SubObjectsSortedByName>
     <DownloadApplicationInfo>true</DownloadApplicationInfo>
     <WriteProductVersion>true</WriteProductVersion>
     <GenerateTpy>false</GenerateTpy>
-    <Name>Twee_Signalen</Name>
+    <Name>Reactorvat</Name>
     <ProgramVersion>3.1.4024.0</ProgramVersion>
-    <Application>{c2976fc0-c6bf-4e71-80d1-60bdcf3e8eee}</Application>
-    <TypeSystem>{bc2b983b-266c-4482-98ca-3c62e70e25d9}</TypeSystem>
-    <Implicit_Task_Info>{1aed04c2-0cea-41eb-8e51-58f64132e414}</Implicit_Task_Info>
-    <Implicit_KindOfTask>{5623754d-08d4-43b8-bb10-846592a66bd5}</Implicit_KindOfTask>
-    <Implicit_Jitter_Distribution>{08f3ee24-c28b-4417-b78d-4349f890d0e6}</Implicit_Jitter_Distribution>
-    <LibraryReferences>{0d4f3b0f-264c-4b09-a334-757cf366e59e}</LibraryReferences>
+    <Application>{c356c824-9c2d-495e-8915-740741e55160}</Application>
+    <TypeSystem>{9f5bc3fa-e396-42a0-baa1-43e3d3783862}</TypeSystem>
+    <Implicit_Task_Info>{37eed0f8-97e1-49f1-845a-60b74db8f9f9}</Implicit_Task_Info>
+    <Implicit_KindOfTask>{08b7c395-1b46-4d5a-ac92-14bb48fbbc71}</Implicit_KindOfTask>
+    <Implicit_Jitter_Distribution>{d67b762a-d283-4bbd-b1e7-35e307baaae6}</Implicit_Jitter_Distribution>
+    <LibraryReferences>{2458b667-1884-46e0-a4c5-1c9028e62c0b}</LibraryReferences>
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="PlcTask.TcTTO">

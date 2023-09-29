@@ -30,9 +30,6 @@
 				<Task Id="11" Priority="28" CycleTime="100000" AmsPort="358" AdtTasks="true">
 					<Name>PlcTask8</Name>
 				</Task>
-				<Task Id="12" Priority="29" CycleTime="100000" AmsPort="359" AdtTasks="true">
-					<Name>PlcTask9</Name>
-				</Task>
 			</Tasks>
 		</System>
 		<Plc>
@@ -123,18 +120,6 @@
 			<Project GUID="{31B1131D-1A3B-4B07-AFB8-F77991658BA2}" Name="Twee_Pompen" PrjFilePath="Twee_Pompen\Twee_Pompen.plcproj" TmcFilePath="Twee_Pompen\Twee_Pompen.tmc" ReloadTmc="true" AmsPort="858" FileArchiveSettings="#x000e" SymbolicMapping="true">
 				<Instance Id="#x085021c0" TcSmClass="TComPlcObjDef" KeepUnrestoredLinks="2">
 					<Name>Twee_Pompen Instance</Name>
-					<CLSID ClassFactory="TcPlc30">{08500001-0000-0000-F000-000000000064}</CLSID>
-					<Contexts>
-						<Context>
-							<Id>1</Id>
-							<Name>Default</Name>
-						</Context>
-					</Contexts>
-				</Instance>
-			</Project>
-			<Project GUID="{F9B5D328-72EC-4E38-B72E-785DD03F8709}" Name="Drie_Pompen" PrjFilePath="Drie_Pompen\Drie_Pompen.plcproj" TmcFilePath="Drie_Pompen\Drie_Pompen.tmc" ReloadTmc="true" AmsPort="859" FileArchiveSettings="#x000e" SymbolicMapping="true">
-				<Instance Id="#x08502200" TcSmClass="TComPlcObjDef" KeepUnrestoredLinks="2">
-					<Name>Drie_Pompen Instance</Name>
 					<CLSID ClassFactory="TcPlc30">{08500001-0000-0000-F000-000000000064}</CLSID>
 					<Contexts>
 						<Context>

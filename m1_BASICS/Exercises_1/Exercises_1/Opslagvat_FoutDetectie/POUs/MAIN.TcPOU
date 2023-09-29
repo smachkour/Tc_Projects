@@ -1,0 +1,52 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.12">
+  <POU Name="MAIN" Id="{dab92f96-674b-4763-8ba8-9f82a46a8419}" SpecialFunc="None">
+    <Declaration><![CDATA[PROGRAM MAIN
+VAR
+
+	Fout: BOOL;
+
+// Inputs
+	SensorHoog AT %I*: BOOL; // Zijwand  niveau Hoog
+	SensorLaag AT %I*: BOOL; // Zijwand  niveau Laag
+	StartDrukknop AT %I*: BOOL; // Start DK
+	StopDrukknop  AT %I*: BOOL;	// Stop DK
+
+// Outputs
+	K1 AT %Q*: BOOL; // Klep
+	P1 AT %Q*: BOOL; // Pomp
+	
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[(*
+Opslagvat met foutdetectie (0 extra regels)
+
+
+In de voorgaande oefening (opslag_vat) werden twee sensoren voor niveaudetectie gebruikt. 
+Het is onmogelijk dat de sensor onderaan geen vloeistof detecteert (FALSE) en de sensor bovenaan de tank wel (TRUE). 
+De sensor onderaan moet dus defect zijn of er is een kabelbreuk. 
+In dat geval mogen noch de klep, noch de pomp geactiveerd kunnen worden.
+*)
+
+Fout := NOT SensorLaag AND SensorHoog; // Foutdetectie
+K1 := NOT Fout AND (NOT SensorLaag OR SensorHoog); // Klep control met foutdetectie
+P1 := NOT Fout AND StartDrukknop AND NOT SensorHoog AND SensorLaag; // Pomp control met foutdetectie
+IF Fout OR StopDrukknop OR NOT SensorLaag THEN P1 := FALSE; END_IF; // Stop pomp bij fout, StopDrukknop of als tank leeg is
+
+
+]]></ST>
+    </Implementation>
+    <LineIds Name="MAIN">
+      <LineId Id="6" Count="0" />
+      <LineId Id="43" Count="0" />
+      <LineId Id="48" Count="0" />
+      <LineId Id="44" Count="0" />
+      <LineId Id="15" Count="0" />
+      <LineId Id="45" Count="2" />
+      <LineId Id="16" Count="1" />
+      <LineId Id="37" Count="5" />
+      <LineId Id="2" Count="0" />
+    </LineIds>
+  </POU>
+</TcPlcObject>

@@ -1,0 +1,51 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.12">
+  <POU Name="MAIN" Id="{b3284224-96c7-4a50-a64a-590fdcb6f79c}" SpecialFunc="None">
+    <Declaration><![CDATA[PROGRAM Main
+VAR
+    // Inputs
+    DrukKnop AT %I*: BOOL; // Drukknop om pompen te schakelen
+    StopDrukknop AT %I*: BOOL; // Drukknop om alle pompen te stoppen
+    HoofdSchakelaar AT %I*: BOOL; // Hoofdschakelaar om de installatie in te schakelen
+
+    // Outputs
+    Pomp1 AT %Q*: BOOL; // Pomp 1
+    Pomp2 AT %Q*: BOOL; // Pomp 2
+    Pomp3 AT %Q*: BOOL; // Pomp 3
+
+    // Internal
+    Teller: INT := 0; // Teller om de pomptoestand bij te houden
+    prevDrukKnop: BOOL := FALSE; // Vorige staat van de DrukKnop
+END_VAR
+
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[(*
+Drie pompen (4 regels code)
+
+Een tank wordt gevuld met drie pompen. De installatie zal pas werken als een hoofdschakelaar AAN staat. 
+Om het debiet te regelen kunnen achtereenvolgens één, twee of alle drie de pompen tegelijk worden ingeschakeld. 
+Dit gebeurt met één enkele drukknop. Een andere drukknop zal op elk moment alle pompen uitschakelen.
+*)
+
+IF NOT prevDrukKnop AND DrukKnop AND HoofdSchakelaar THEN
+    Teller := (Teller + 1) MOD 4;
+END_IF;
+prevDrukKnop := DrukKnop;
+
+Pomp1 := (Teller >= 1) AND NOT StopDrukknop;
+Pomp2 := (Teller >= 2) AND NOT StopDrukknop;
+Pomp3 := (Teller = 3) AND NOT StopDrukknop;
+]]></ST>
+    </Implementation>
+    <LineIds Name="MAIN">
+      <LineId Id="2" Count="0" />
+      <LineId Id="8" Count="1" />
+      <LineId Id="7" Count="0" />
+      <LineId Id="11" Count="1" />
+      <LineId Id="6" Count="0" />
+      <LineId Id="24" Count="8" />
+      <LineId Id="13" Count="0" />
+    </LineIds>
+  </POU>
+</TcPlcObject>

@@ -1,0 +1,55 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.12">
+  <POU Name="MAIN" Id="{836c8e60-ace2-4a11-95cb-99812214c8ff}" SpecialFunc="None">
+    <Declaration><![CDATA[PROGRAM MAIN
+VAR
+	
+// Events
+	EV_1: R_TRIG; // Event 1
+	EV_2: R_TRIG; // Event 2
+	
+// Inputs
+	DK_1 AT %I*: BOOL; // Drukknop beneden
+	DK_2 AT %I*: BOOL; // Drukknop Boven
+	
+// Outputs
+	LAMP AT %Q*: BOOL; // Lamp in de Hal
+	
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[(*
+https://infosys.beckhoff.com/english.php?content=../content/1033/tcplclib_tc2_standard/74391563.html&id=
+
+Teleruptorschakeling (2 regels)
+
+Programmeer de teleruptorschakeling in Structured Tekst. 
+Zorg ook hier dat het mogelijk is om te bedienen met meerdere drukknoppen. 
+Je zal merken dat dit een veel eenvoudiger programma zal zijn dan in LADDER. 
+
+Voor de flank-detectie heb je een Function Block (FB) nodig.
+Met een rechtermuisklik in het programmeervenster (niet het declareer venster) kan 
+de 'input assisant' openen en selecteer vervolgens > Function Blocks > Tc2_Standard > trigger > R_TRIG
+*)
+
+
+EV_1(CLK:=DK_1 , Q=>LAMP ); 
+EV_2(CLK:=DK_2 , Q=>LAMP ); 
+]]></ST>
+    </Implementation>
+    <LineIds Name="MAIN">
+      <LineId Id="17" Count="0" />
+      <LineId Id="19" Count="0" />
+      <LineId Id="21" Count="3" />
+      <LineId Id="26" Count="1" />
+      <LineId Id="25" Count="0" />
+      <LineId Id="20" Count="0" />
+      <LineId Id="28" Count="1" />
+      <LineId Id="18" Count="0" />
+      <LineId Id="15" Count="1" />
+      <LineId Id="2" Count="0" />
+      <LineId Id="14" Count="0" />
+      <LineId Id="7" Count="0" />
+    </LineIds>
+  </POU>
+</TcPlcObject>

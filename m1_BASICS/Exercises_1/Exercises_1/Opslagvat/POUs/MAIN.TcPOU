@@ -1,0 +1,53 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.12">
+  <POU Name="MAIN" Id="{13fc9eb7-def6-4e13-aac0-0e3df95d5012}" SpecialFunc="None">
+    <Declaration><![CDATA[PROGRAM MAIN
+VAR
+	
+// Inputs
+	SensorHoog AT %I*: BOOL; // Zijwand  niveau Hoog
+	SensorLaag AT %I*: BOOL; // Zijwand  niveau Laag
+	StartDrukknop AT %I*: BOOL; // Start DK
+	StopDrukknop  AT %I*: BOOL;	// Stop DK
+
+// Outputs
+	K1 AT %Q*: BOOL; // Klep
+	P1 AT %Q*: BOOL; // Pomp
+	
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[(*
+Opslagvat (4 regels code)
+
+Een opslagvat heeft twee sensoren in de zijwand die een laag en hoog niveau aanduiden. 
+Aan de hand van een PLC programma dient er automatisch de klep bovenaan het vat geopend te worden als het vat leeg is.
+De tank wordt nu gevuld. Als de tank vol is sluit de klep K1 eveneens automatisch. 
+Onderaan de tank bevindt zich een pomp P1 die met een start- en stop-drukknop in- en uitgeschakeld kan worden. 
+
+Als de tank leeg gelopen is, stopt de pomp automatisch en opent de klep K1 bovenaan. 
+De pomp kan niet ingeschakeld worden zolang de tank gevuld wordt.
+*)
+
+K1 := NOT SensorLaag OR SensorHoog; // Open/Sluit klep gebaseerd op sensoren
+P1 := StartDrukknop AND NOT SensorHoog AND SensorLaag; // Start/Stop pomp gebaseerd op sensoren en drukknoppen
+IF StopDrukknop OR NOT SensorLaag THEN P1 := FALSE; END_IF; // Stop pomp met StopDrukknop of als tank leeg is
+
+]]></ST>
+    </Implementation>
+    <LineIds Name="MAIN">
+      <LineId Id="24" Count="0" />
+      <LineId Id="27" Count="2" />
+      <LineId Id="31" Count="2" />
+      <LineId Id="30" Count="0" />
+      <LineId Id="26" Count="0" />
+      <LineId Id="34" Count="0" />
+      <LineId Id="25" Count="0" />
+      <LineId Id="35" Count="0" />
+      <LineId Id="60" Count="1" />
+      <LineId Id="55" Count="0" />
+      <LineId Id="7" Count="0" />
+      <LineId Id="2" Count="0" />
+    </LineIds>
+  </POU>
+</TcPlcObject>

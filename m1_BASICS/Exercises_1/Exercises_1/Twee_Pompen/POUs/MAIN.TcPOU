@@ -1,0 +1,56 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.12">
+  <POU Name="MAIN" Id="{badfd37d-726b-436c-9e29-0ea4c28abb0e}" SpecialFunc="None">
+    <Declaration><![CDATA[PROGRAM MAIN
+VAR
+// Inputs
+	HoofdSchakelaar AT %I* : BOOL;
+    StartDrukknop AT %I* : BOOL;
+    StopDrukknop AT %I* : BOOL;
+    NiveauSchakelaarLaag AT %I* : BOOL;
+    NiveauSchakelaarHoog AT %I* : BOOL;
+    Teller: INT := 0;
+
+//Outputs
+    Pomp1 AT %Q* : BOOL;
+    Pomp2 AT %Q* : BOOL;
+	
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[(*
+Twee Pompen (1 regel code + 3regels voor inversie 2 pompen)
+
+Een tank wordt gevuld met twee pompen. 
+Om onderhoud te vermijden en de slijtage aan de pompen te spreiden zal men elke pomp om beurten apart laten werken. 
+De installatie zal pas werken als een hoofdschakelaar AAN staat.
+
+De pompbeweging wordt gestart ofwel:
+
+    manueel door een startdrukknop
+    automatisch door een niveauschakelaar (onderin de tank)
+
+De pompbeweging wordt gestopt ofwel:
+
+    manueel door een stopdrukknop
+    automatisch door een niveauschakelaar (bovenaan de tank)
+*)
+
+IF HoofdSchakelaar AND (StartDrukknop OR (NOT NiveauSchakelaarHoog AND NiveauSchakelaarLaag)) THEN Teller := (Teller + 1) MOD 2; END_IF;
+Pomp1 := (Teller = 0) AND NOT StopDrukknop AND NOT NiveauSchakelaarHoog;
+Pomp2 := (Teller = 1) AND NOT StopDrukknop AND NOT NiveauSchakelaarHoog;
+]]></ST>
+    </Implementation>
+    <LineIds Name="MAIN">
+      <LineId Id="2" Count="0" />
+      <LineId Id="8" Count="2" />
+      <LineId Id="20" Count="1" />
+      <LineId Id="11" Count="8" />
+      <LineId Id="7" Count="0" />
+      <LineId Id="6" Count="0" />
+      <LineId Id="30" Count="1" />
+      <LineId Id="44" Count="1" />
+      <LineId Id="29" Count="0" />
+    </LineIds>
+  </POU>
+</TcPlcObject>
