@@ -1,0 +1,83 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.12">
+  <POU Name="FB_ClickLog" Id="{8f6cddd7-835e-492b-b772-11d3f86c5c82}" SpecialFunc="None">
+    <Declaration><![CDATA[FUNCTION_BLOCK FB_ClickLog
+VAR
+    startTimer : BOOL := FALSE;
+    clickDetected : BOOL;
+    elapsedTime : TIME;
+    timer : TON;
+    clickTimes : ARRAY[1..50] OF TIME;
+    clickIndex : INT := 0;
+    pauseTimer : TON;
+	InputVariable AT %I* : BOOL;
+END_VAR
+
+// NIET GETEST - CHATGPT GEMAAKT]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[IF NOT startTimer THEN
+    IF InputVariable THEN // Vervang 'InputVariable' door je daadwerkelijke input
+        startTimer := TRUE;
+        timer.IN := TRUE;
+        timer.PT := T#5s;
+        pauseTimer.PT := T#2s;
+    END_IF;
+ELSE
+    timer();
+    pauseTimer();
+
+    IF timer.Q THEN
+        pauseTimer.IN := TRUE;
+        timer.IN := FALSE;
+    ELSIF pauseTimer.Q THEN
+        pauseTimer.IN := FALSE;
+        timer.IN := TRUE;
+    END_IF;
+
+    IF InputVariable AND NOT pauseTimer.Q THEN
+        IF clickIndex < 10 THEN
+            clickIndex := clickIndex + 1;
+            clickTimes[clickIndex] := timer.ET;
+        END_IF;
+    END_IF;
+END_IF;
+
+// Reset timer elapsed time at the start of each recording period
+IF timer.IN THEN
+    timer.IN := FALSE;
+    timer(); // Update de timer status
+    timer.IN := TRUE;
+END_IF;
+]]></ST>
+    </Implementation>
+    <Method Name="GetMinimumTime" Id="{0ac996dc-da40-4a57-831c-438a84555969}">
+      <Declaration><![CDATA[METHOD GetMinimumTime : TIME
+VAR_INPUT
+	    i : INT;
+END_VAR
+
+// NIET GETEST - CHATGPT GEMAAKT]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[// controleer in welke formaat time word gezet in de clicktimes array
+GetMinimumTime := T#24D; // Stel een hoge beginwaarde in
+
+FOR i := 1 TO clickIndex DO
+	IF clickTimes[i] < GetMinimumTime THEN
+		GetMinimumTime := clickTimes[i];
+	END_IF;
+END_FOR;
+]]></ST>
+      </Implementation>
+    </Method>
+    <LineIds Name="FB_ClickLog">
+      <LineId Id="91" Count="26" />
+      <LineId Id="123" Count="5" />
+      <LineId Id="9" Count="0" />
+    </LineIds>
+    <LineIds Name="FB_ClickLog.GetMinimumTime">
+      <LineId Id="18" Count="0" />
+      <LineId Id="10" Count="6" />
+      <LineId Id="5" Count="0" />
+    </LineIds>
+  </POU>
+</TcPlcObject>

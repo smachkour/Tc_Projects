@@ -1,0 +1,40 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.12">
+  <POU Name="MAIN" Id="{d7eb7afd-e6e9-4b0f-a2e3-c62636137897}" SpecialFunc="None">
+    <Declaration><![CDATA[PROGRAM MAIN
+VAR
+    bPhotoCell: BOOL; // Boolean variabele voor de fotocel bij de ingang
+    bButton: BOOL; // Boolean variabele voor de drukknop bij de kassa
+    bMainSwitch: BOOL; // Boolean variabele voor de hoofdschakelaar in het bureau
+    fbDoorTimer: TON; // Timer On function block voor de deur
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[(*
+Automatische deur (1 regel code)
+
+Aan een supermarkt wordt de ingangsdeur geopend en gesloten d.m.v. twee pneumatische cilinders. 
+Aan de ingang buiten staat een fotocel die de deur zal openen bij een naderende klant.
+Ook aan de kassa kan men de deur openen door gebruik te maken van een drukknop.
+
+De deur wordt automatisch gesloten 1 seconde nadat het detectiesignaal is weggevallen.
+De automatische werking functioneert enkel als een hoofdschakelaar in het bureau AAN staat.
+*)
+
+fbDoorTimer(IN:=(bPhotoCell OR bButton) AND bMainSwitch, PT:=T#1S);
+]]></ST>
+    </Implementation>
+    <LineIds Name="MAIN">
+      <LineId Id="2" Count="0" />
+      <LineId Id="9" Count="2" />
+      <LineId Id="13" Count="1" />
+      <LineId Id="12" Count="0" />
+      <LineId Id="7" Count="0" />
+      <LineId Id="15" Count="0" />
+      <LineId Id="6" Count="0" />
+      <LineId Id="17" Count="0" />
+      <LineId Id="25" Count="0" />
+      <LineId Id="16" Count="0" />
+    </LineIds>
+  </POU>
+</TcPlcObject>

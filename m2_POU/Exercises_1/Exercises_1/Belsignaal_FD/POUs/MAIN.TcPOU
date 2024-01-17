@@ -1,0 +1,64 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.12">
+  <POU Name="MAIN" Id="{69469e95-6559-493c-9c42-c2fee0364b4e}" SpecialFunc="None">
+    <Declaration><![CDATA[PROGRAM MAIN
+VAR
+	// Digitale ingangen
+	bSensor1 AT %I*: BOOL;
+	bSensor2 AT %I*: BOOL;
+	bReset   AT %I*: BOOL;
+	
+	// Digitale uitgangen
+	bZoemer  AT %Q*: BOOL;
+	
+	// Functies
+	NaarBinnen: R_TRIG;
+	Aantalklanten: CTU;
+	ZoemerLimit: TOF;
+END_VAR
+
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[(*
+Belsignaal aan winkeldeur (3 regel code +1 + 1)
+
+elke uitbreiding voegt 1 regel code toe op de basis 3 regels code voor de eerste opdracht 
+
+    Aan de ingangsdeur van een winkel staan twee fotocellen S01 en S02 opgesteld.
+    Wanneer een klant binnenkomt wordt eerst S01 onderbroken, daarna S02, een bel of zoemer zal in werking treden zolang de lichtstralen van de fotocellen onderbroken zijn.
+    Wanneer een klant buitengaat wordt eerst S02 onderbroken, daarna S01, hier mag de bel of zoemer niet werken.
+
+Uitbreiding: Tel het aantal binnenkomende klanten met een counter FB.
+
+Uitbreiding: Om te vermijden dat de bel blijft rinkelen als een klant aan de deur blijft stilstaan zal de bel of zoemer slechts 0,5 seconde werken
+*)
+
+// niet zeker 2e uitbreiding
+
+NaarBinnen(CLK:=bSensor2 , Q=> );
+bZoemer S=(bSensor1 AND NaarBinnen.Q);
+bZoemer R=((NOT bSensor1) AND (NOT bSensor2)OR(ZoemerLimit.Q));
+
+// Uitbreiding 1
+Aantalklanten(CU:=(bSensor1 AND NaarBinnen.Q), RESET:=bReset);
+
+// Uitbreiding 2
+ZoemerLimit(IN:=(bSensor1 AND NaarBinnen.Q), PT:=T#5S , Q=>bZoemer , ET=> );]]></ST>
+    </Implementation>
+    <LineIds Name="MAIN">
+      <LineId Id="34" Count="0" />
+      <LineId Id="39" Count="9" />
+      <LineId Id="38" Count="0" />
+      <LineId Id="37" Count="0" />
+      <LineId Id="93" Count="0" />
+      <LineId Id="35" Count="1" />
+      <LineId Id="83" Count="2" />
+      <LineId Id="90" Count="0" />
+      <LineId Id="89" Count="0" />
+      <LineId Id="86" Count="0" />
+      <LineId Id="92" Count="0" />
+      <LineId Id="91" Count="0" />
+      <LineId Id="2" Count="0" />
+    </LineIds>
+  </POU>
+</TcPlcObject>

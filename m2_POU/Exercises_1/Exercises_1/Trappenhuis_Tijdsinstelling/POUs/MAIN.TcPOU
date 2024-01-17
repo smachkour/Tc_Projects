@@ -1,0 +1,49 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.12">
+  <POU Name="MAIN" Id="{1f0767ac-6d60-45e5-ad84-49881c3772ed}" SpecialFunc="None">
+    <Declaration><![CDATA[PROGRAM MAIN
+VAR
+	// Ingangen
+	bDK1               AT %I*: BOOL;  // Drukknop 1
+	bDK2               AT %I*: BOOL;  // Drukknop 2
+	bDK3               AT %I*: BOOL;  // Drukknop 3
+	bDK4               AT %I*: BOOL;  // Drukknop 4
+	bDK5               AT %I*: BOOL;  // Drukknop 5
+	bDK6               AT %I*: BOOL;  // Drukknop 6
+	bManualOff         AT %I*: BOOL;  // Manuele uitschakeling
+	
+	// Uitgangen 
+	lamp               AT %Q*: BOOL;
+
+	// Timer
+	Timer1: TOF;
+END_VAR]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[(*
+Trappenhuisautomaat met tijdsinstelling (3 regels)
+
+In een appartementsgebouw staan in de traphal op de verschillende verdiepingen in totaal 6 drukknoppen. 
+Als men één van de drukknoppen bedient gaat de verlichting branden. 
+De verlichting blijft 3min. branden - tijdens de test gebruikt men 3s - vooraleer deze vanzelf uitschakelt.
+Bij iedere bediening van een drukknop zullen de lampen manueel kunnen gedoofd worden.
+*)
+
+// Logica voor het activeren van de timer en het bedienen van de lampen
+Timer1(IN:=(bDK1 OR bDK2 OR bDK3 OR bDK4 OR bDK5 OR bDK6) AND NOT bManualOff, PT:=T#3s, Q=>lamp);
+
+// Logica voor manuele uitschakeling
+IF bManualOff THEN
+	lamp := FALSE;
+END_IF;]]></ST>
+    </Implementation>
+    <LineIds Name="MAIN">
+      <LineId Id="2" Count="0" />
+      <LineId Id="8" Count="2" />
+      <LineId Id="12" Count="1" />
+      <LineId Id="7" Count="0" />
+      <LineId Id="6" Count="0" />
+      <LineId Id="30" Count="6" />
+      <LineId Id="29" Count="0" />
+    </LineIds>
+  </POU>
+</TcPlcObject>

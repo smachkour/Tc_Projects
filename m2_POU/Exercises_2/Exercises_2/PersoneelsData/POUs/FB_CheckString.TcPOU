@@ -1,0 +1,24 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.12">
+  <POU Name="FB_CheckString" Id="{4c1954db-abef-48d3-a918-06a7c044dc84}" SpecialFunc="None">
+    <Declaration><![CDATA[FUNCTION_BLOCK FB_CheckString
+VAR_INPUT
+    data : Pers_data;
+    searchString : STRING; // te zoeken string
+END_VAR
+VAR_OUTPUT
+    found : BOOL;
+END_VAR
+
+// NOG NIET OPGELOST!!!]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[found := (FIND(StrToUpperA(data.Name), StrToUpperA(searchString)) <> 0) OR
+         (FIND(StrToUpperA(data.Firstname), StrToUpperA(searchString)) <> 0) OR
+         (FIND(StrToUpperA(data.Address), StrToUpperA(searchString)) <> 0);]]></ST>
+    </Implementation>
+    <LineIds Name="FB_CheckString">
+      <LineId Id="16" Count="1" />
+      <LineId Id="9" Count="0" />
+    </LineIds>
+  </POU>
+</TcPlcObject>

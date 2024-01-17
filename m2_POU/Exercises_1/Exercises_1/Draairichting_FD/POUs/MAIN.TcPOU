@@ -1,0 +1,52 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.12">
+  <POU Name="MAIN" Id="{37994f21-3bc5-4ef9-8a99-b480fc2c96cd}" SpecialFunc="None">
+    <Declaration><![CDATA[PROGRAM MAIN
+VAR
+    sensorA, sensorB, motorLinksDraaiend, motorRechtsDraaiend, alarm: BOOL;
+    fbFlankSensorA, fbFlankSensorB: R_TRIG; // Rising edge detection for sensors
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[(*
+Draairichting van een motor (2 regel code)
+
+Op de as van een motor worden twee sensoren gemonteerd bv reflex fotocellen.
+Bepaal de draairichting met flankdetectie.
+
+
+Uitbreiding: Om een verplaatsbare pomp niet te beschadigen mag een elektrische motor enkel links draaien. 
+Daarom wordt de draairichting gedetecteerd door middel van vorige oefening. 
+Wanneer de motor links aanloopt is er normale werking.
+Als de motor rechts aanloopt zal hij onmiddellijk stilvallen en een rood alarmlicht zal branden.
+*)
+
+fbFlankSensorA(CLK:=sensorA); fbFlankSensorB(CLK:=sensorB);
+motorLinksDraaiend := fbFlankSensorA.Q AND NOT sensorB; 
+motorRechtsDraaiend := fbFlankSensorB.Q AND NOT sensorA;
+
+
+
+// Uitbreiding
+alarm := NOT motorLinksDraaiend; 
+]]></ST>
+    </Implementation>
+    <LineIds Name="MAIN">
+      <LineId Id="95" Count="0" />
+      <LineId Id="167" Count="1" />
+      <LineId Id="166" Count="0" />
+      <LineId Id="169" Count="0" />
+      <LineId Id="171" Count="1" />
+      <LineId Id="170" Count="0" />
+      <LineId Id="174" Count="1" />
+      <LineId Id="173" Count="0" />
+      <LineId Id="23" Count="0" />
+      <LineId Id="22" Count="0" />
+      <LineId Id="16" Count="1" />
+      <LineId Id="176" Count="2" />
+      <LineId Id="15" Count="0" />
+      <LineId Id="11" Count="1" />
+      <LineId Id="2" Count="0" />
+    </LineIds>
+  </POU>
+</TcPlcObject>

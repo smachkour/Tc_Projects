@@ -1,0 +1,102 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.12">
+  <POU Name="MAIN" Id="{1cd3b06e-ca10-42d6-ad28-57e5e352e768}" SpecialFunc="None">
+    <Declaration><![CDATA[PROGRAM MAIN
+VAR
+	// Digitale ingangen
+	bSensor1        AT %I*:BOOL;
+	bSensor2        AT %I*:BOOL;
+	Plus1auto       AT %I*:BOOL;
+	Min1auto        AT %I*:BOOL;
+	
+	// Analoge ingangen 
+	iAantalplaatsen AT %I*:WORD;
+	
+	// Digitale uitgangen
+	bSlagboom       AT %Q*:BOOL;
+	bGroen          AT %Q*:BOOL;
+	bRood           AT %Q*:BOOL;
+	
+	// Analoge uitgangen 
+	iTellerstand    AT %Q*:WORD;
+	
+	// Functies
+	negatieveflankS2: F_TRIG;
+	positieveflankS1: R_TRIG;
+	positieveflankS2: R_TRIG;
+	negatieveflankS1: F_TRIG;
+	Aantalbezoekers : CTUD  ;
+	
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[(*
+Parking
+
+Maak een visualisatie die de in- en uitgang van een parking voor personenwagens simuleert.
+
+  - De toegang tot de parking wordt aangegeven door de verkeerslichten aan de ingang.
+ 	Als het maximum aantal parkeerplaatsen is bezet (zie tellerstand) moet het groene licht doven en het rode licht branden.
+ 
+  - Bij het binnenrijden onderbreekt de wagen eerst sensor 1, 
+	de slagboom opent en daarna wordt sensor 2 onderbroken. 
+	Als de wagen verder naar binnenrijd wordt eerst sensor 1 terug vrijgegeven, 
+	daarna wordt sensor 2 vrijgegeven. 
+	Op dit moment wordt een wagen bij de tellerstand opgeteld en de slagboom wordt terug gesloten.
+	
+  - Bij het buiten rijden krijgen we de omgekeerde beweging. De wagen onderbreekt eerst sensor 2.
+	De slagboom opent. Daarna wordt sensor 1 onderbroken. 
+	Als de wagen naar buiten rijd wordt eerst sensor 2 terug vrijgegeven, daarna wordt sensor 1 vrijgegeven. 
+	Op dit moment wordt een wagen van de tellerstand afgetrokken en de slagboom wordt terug gesloten.
+*)
+
+positieveflankS1(CLK:=bSensor1 , Q=> );
+negatieveflankS1(CLK:=bSensor1 , Q=> );
+positieveflankS2(CLK:=bSensor2 , Q=> );
+negatieveflankS2(CLK:=bSensor2 , Q=> );
+bSlagboom S=(positieveflankS1.Q AND NOT bSensor2)OR(positieveflankS2.Q AND NOT bSensor1);
+bSlagboom R=(negatieveflankS2.Q AND NOT bSensor1)OR(negatieveflankS1.Q AND NOT bSensor2);
+
+Aantalbezoekers(
+	CU:=(positieveflankS1.Q AND NOT bSensor2)OR Plus1auto, 
+	CD:=(positieveflankS2.Q AND NOT bSensor1)OR Min1auto , 
+	RESET:= , 
+	LOAD:= , 
+	PV:= , 
+	QU=> , 
+	QD=> , 
+	CV=>iTellerstand);
+	
+IF (iTellerstand >= iAantalplaatsen) THEN
+	bRood:=TRUE;
+	bGroen:=FALSE;
+END_IF
+
+IF (iTellerstand < iAantalplaatsen) THEN
+	bGroen:=TRUE;
+	bRood:=FALSE;
+END_IF]]></ST>
+    </Implementation>
+    <LineIds Name="MAIN">
+      <LineId Id="58" Count="0" />
+      <LineId Id="62" Count="4" />
+      <LineId Id="69" Count="1" />
+      <LineId Id="67" Count="0" />
+      <LineId Id="74" Count="3" />
+      <LineId Id="71" Count="0" />
+      <LineId Id="61" Count="0" />
+      <LineId Id="72" Count="1" />
+      <LineId Id="68" Count="0" />
+      <LineId Id="60" Count="0" />
+      <LineId Id="59" Count="0" />
+      <LineId Id="28" Count="5" />
+      <LineId Id="50" Count="0" />
+      <LineId Id="34" Count="8" />
+      <LineId Id="51" Count="0" />
+      <LineId Id="43" Count="3" />
+      <LineId Id="52" Count="0" />
+      <LineId Id="47" Count="2" />
+      <LineId Id="2" Count="0" />
+    </LineIds>
+  </POU>
+</TcPlcObject>

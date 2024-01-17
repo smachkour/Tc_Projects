@@ -1,0 +1,29 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.12">
+  <POU Name="FB_PWM" Id="{5711cd2f-24a4-4e3a-b11c-ac3f8cd808b8}" SpecialFunc="None">
+    <Declaration><![CDATA[FUNCTION_BLOCK FB_PWM
+VAR_INPUT
+    fPeriod    : REAL;    // Periode van het PWM-signaal in ms
+    fDutyCycle : REAL;    // Duty cycle in procenten
+END_VAR
+VAR_OUTPUT
+    bPWMOutput : BOOL;    // PWM output
+END_VAR
+VAR
+    tTimer     : TON;     // Timer voor het PWM-signaal
+END_VAR]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[// PWM-logica
+tTimer(IN := tTimer.Q, PT := TO_TIME(fPeriod));
+IF tTimer.ET < TO_TIME(fPeriod * fDutyCycle / 100) THEN
+    bPWMOutput := TRUE;
+ELSE
+    bPWMOutput := FALSE;
+END_IF]]></ST>
+    </Implementation>
+    <LineIds Name="FB_PWM">
+      <LineId Id="99" Count="5" />
+      <LineId Id="9" Count="0" />
+    </LineIds>
+  </POU>
+</TcPlcObject>

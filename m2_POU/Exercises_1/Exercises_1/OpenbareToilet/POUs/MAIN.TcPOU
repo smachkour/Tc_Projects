@@ -1,0 +1,50 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.12">
+  <POU Name="MAIN" Id="{747342d9-90ea-43df-b18b-2c53a383a88d}" SpecialFunc="None">
+    <Declaration><![CDATA[PROGRAM MAIN
+VAR
+	S01, S02, S03: BOOL; // Bistabiele schakelaars voor de toiletten
+	L01, L02, L03: BOOL; // Lampen voor de toiletten
+	Ventilator: BOOL; // Gemeenschappelijke ventilator
+	fbVentilatorTimer: TOF; // Timer voor de ventilator
+END_VAR]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[(*
+Openbaar toilet (4 regel code)
+
+Er zijn drie toiletten met elk een lamp voor de verlichting (L01, L02 en L03) en elk een bistabiele schakelaar
+(S01, S02 en S03) om deze lampen respectievelijk aan te steken.
+ Wanneer iemand een toilet binnengaat en de schakelaar bedient gebeuren twee zaken:
+
+    enkel in het betreffende toilet zal de lamp gaan branden
+    er is ook één gemeenschappelijke ventilator voor het verluchten van de
+    toiletten, deze ventilator zal in werking treden als eender welke
+    schakelaar wordt bediend.
+
+Als de bezoeker terug buitengaat en de verlichting uitschakelt gebeuren twee zaken:
+
+    in het betreffende toilet zal de lamp uitgeschakeld worden
+    de gemeenschappelijke ventilator zal nog 2 minuten (simuleer 5
+    seconden) blijven werken en daarna automatisch uitschakelen (op
+    voorwaarde dat intussen niemand anders de toiletten bezoekt).
+*)
+
+L01 := S01; L02 := S02; L03 := S03; // Bediening lampen
+Ventilator := S01 OR S02 OR S03 OR fbVentilatorTimer.Q; // Ventilator werkt als een van de schakelaars is ingeschakeld of de timer loopt
+fbVentilatorTimer(IN:=S01 OR S02 OR S03, PT:=T#5s); // Timer start als een van de schakelaars wordt ingeschakeld, looptijd 5 seconden
+]]></ST>
+    </Implementation>
+    <LineIds Name="MAIN">
+      <LineId Id="13" Count="0" />
+      <LineId Id="29" Count="2" />
+      <LineId Id="43" Count="1" />
+      <LineId Id="32" Count="10" />
+      <LineId Id="28" Count="0" />
+      <LineId Id="27" Count="0" />
+      <LineId Id="45" Count="0" />
+      <LineId Id="26" Count="0" />
+      <LineId Id="18" Count="1" />
+      <LineId Id="2" Count="0" />
+    </LineIds>
+  </POU>
+</TcPlcObject>

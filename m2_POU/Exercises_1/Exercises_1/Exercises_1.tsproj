@@ -1,0 +1,164 @@
+<?xml version="1.0"?>
+<TcSmProject xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://www.beckhoff.com/schemas/2012/07/TcSmProject" TcSmVersion="1.0" TcVersion="3.1.4024.53">
+	<Project ProjectGUID="{D25B00F9-EBA3-496F-BFC9-3D9455991CCD}" Target64Bit="true" ShowHideConfigurations="#x6">
+		<System>
+			<Tasks>
+				<Task Id="3" Priority="20" CycleTime="100000" AmsPort="350" AdtTasks="true">
+					<Name>PlcTask</Name>
+				</Task>
+				<Task Id="4" Priority="21" CycleTime="100000" AmsPort="351" AdtTasks="true">
+					<Name>PlcTask1</Name>
+				</Task>
+				<Task Id="5" Priority="22" CycleTime="100000" AmsPort="352" AdtTasks="true">
+					<Name>PlcTask2</Name>
+				</Task>
+				<Task Id="6" Priority="23" CycleTime="100000" AmsPort="353" AdtTasks="true">
+					<Name>PlcTask3</Name>
+				</Task>
+				<Task Id="7" Priority="24" CycleTime="100000" AmsPort="354" AdtTasks="true">
+					<Name>PlcTask4</Name>
+				</Task>
+				<Task Id="8" Priority="25" CycleTime="100000" AmsPort="355" AdtTasks="true">
+					<Name>PlcTask5</Name>
+				</Task>
+				<Task Id="9" Priority="26" CycleTime="100000" AmsPort="356" AdtTasks="true">
+					<Name>PlcTask6</Name>
+				</Task>
+				<Task Id="10" Priority="27" CycleTime="100000" AmsPort="357" AdtTasks="true">
+					<Name>PlcTask7</Name>
+				</Task>
+				<Task Id="11" Priority="28" CycleTime="100000" AmsPort="358" AdtTasks="true">
+					<Name>PlcTask8</Name>
+				</Task>
+				<Task Id="12" Priority="29" CycleTime="100000" AmsPort="359" AdtTasks="true">
+					<Name>PlcTask9</Name>
+				</Task>
+				<Task Id="13" Priority="30" CycleTime="100000" AmsPort="360" AdtTasks="true">
+					<Name>PlcTask10</Name>
+				</Task>
+			</Tasks>
+		</System>
+		<Plc>
+			<Project GUID="{D1B54615-5787-4A8A-A77F-056BA1BDDF12}" Name="Trappenhuis_Extraverlenging" PrjFilePath="Trappenhuis_Extraverlenging\Trappenhuis_Extraverlenging.plcproj" TmcFilePath="Trappenhuis_Extraverlenging\Trappenhuis_Extraverlenging.tmc" ReloadTmc="true" AmsPort="851" FileArchiveSettings="#x000e" SymbolicMapping="true">
+				<Instance Id="#x08502000" TcSmClass="TComPlcObjDef" KeepUnrestoredLinks="2">
+					<Name>Trappenhuis_Extraverlenging Instance</Name>
+					<CLSID ClassFactory="TcPlc30">{08500001-0000-0000-F000-000000000064}</CLSID>
+					<Contexts>
+						<Context>
+							<Id>1</Id>
+							<Name>Default</Name>
+						</Context>
+					</Contexts>
+				</Instance>
+			</Project>
+			<Project GUID="{052E3DCB-081A-49A1-8CE9-13EE0E71C3B1}" Name="Trappenhuis_Tijdsinstelling" PrjFilePath="Trappenhuis_Tijdsinstelling\Trappenhuis_Tijdsinstelling.plcproj" TmcFilePath="Trappenhuis_Tijdsinstelling\Trappenhuis_Tijdsinstelling.tmc" ReloadTmc="true" AmsPort="852" FileArchiveSettings="#x000e" SymbolicMapping="true">
+				<Instance Id="#x08502040" TcSmClass="TComPlcObjDef" KeepUnrestoredLinks="2">
+					<Name>Trappenhuis_Tijdsinstelling Instance</Name>
+					<CLSID ClassFactory="TcPlc30">{08500001-0000-0000-F000-000000000064}</CLSID>
+					<Contexts>
+						<Context>
+							<Id>1</Id>
+							<Name>Default</Name>
+						</Context>
+					</Contexts>
+				</Instance>
+			</Project>
+			<Project GUID="{87B6100B-46FD-4351-B444-A438666CA586}" Name="Knipperlicht" PrjFilePath="Knipperlicht\Knipperlicht.plcproj" TmcFilePath="Knipperlicht\Knipperlicht.tmc" ReloadTmc="true" AmsPort="853" FileArchiveSettings="#x000e" SymbolicMapping="true">
+				<Instance Id="#x08502080" TcSmClass="TComPlcObjDef" KeepUnrestoredLinks="2">
+					<Name>Knipperlicht Instance</Name>
+					<CLSID ClassFactory="TcPlc30">{08500001-0000-0000-F000-000000000064}</CLSID>
+					<Contexts>
+						<Context>
+							<Id>1</Id>
+							<Name>Default</Name>
+						</Context>
+					</Contexts>
+				</Instance>
+			</Project>
+			<Project GUID="{D8E1327C-3AB8-435A-B4CC-2B704F697414}" Name="Millis" PrjFilePath="Millis\Millis.plcproj" TmcFilePath="Millis\Millis.tmc" ReloadTmc="true" AmsPort="854" FileArchiveSettings="#x000e" SymbolicMapping="true">
+				<Instance Id="#x085020c0" TcSmClass="TComPlcObjDef" KeepUnrestoredLinks="2">
+					<Name>Millis Instance</Name>
+					<CLSID ClassFactory="TcPlc30">{08500001-0000-0000-F000-000000000064}</CLSID>
+					<Contexts>
+						<Context>
+							<Id>1</Id>
+							<Name>Default</Name>
+						</Context>
+					</Contexts>
+				</Instance>
+			</Project>
+			<Project GUID="{3BDD0B1F-5683-4033-A8DA-256BE38BE3E8}" Name="OpenbareToilet" PrjFilePath="OpenbareToilet\OpenbareToilet.plcproj" TmcFilePath="OpenbareToilet\OpenbareToilet.tmc" ReloadTmc="true" AmsPort="855" FileArchiveSettings="#x000e" SymbolicMapping="true">
+				<Instance Id="#x08502100" TcSmClass="TComPlcObjDef" KeepUnrestoredLinks="2">
+					<Name>OpenbareToilet Instance</Name>
+					<CLSID ClassFactory="TcPlc30">{08500001-0000-0000-F000-000000000064}</CLSID>
+					<Contexts>
+						<Context>
+							<Id>1</Id>
+							<Name>Default</Name>
+						</Context>
+					</Contexts>
+				</Instance>
+			</Project>
+			<Project GUID="{C48062B0-477D-4C5D-A452-5072F1929B79}" Name="AutomatischeDeur" PrjFilePath="AutomatischeDeur\AutomatischeDeur.plcproj" TmcFilePath="AutomatischeDeur\AutomatischeDeur.tmc" ReloadTmc="true" AmsPort="856" FileArchiveSettings="#x000e" SymbolicMapping="true">
+				<Instance Id="#x08502140" TcSmClass="TComPlcObjDef" KeepUnrestoredLinks="2">
+					<Name>AutomatischeDeur Instance</Name>
+					<CLSID ClassFactory="TcPlc30">{08500001-0000-0000-F000-000000000064}</CLSID>
+					<Contexts>
+						<Context>
+							<Id>1</Id>
+							<Name>Default</Name>
+						</Context>
+					</Contexts>
+				</Instance>
+			</Project>
+			<Project GUID="{81D5B967-189C-40E2-9759-DFA92322C96D}" Name="Radio" PrjFilePath="Radio\Radio.plcproj" TmcFilePath="Radio\Radio.tmc" ReloadTmc="true" AmsPort="857" FileArchiveSettings="#x000e" SymbolicMapping="true">
+				<Instance Id="#x08502180" TcSmClass="TComPlcObjDef" KeepUnrestoredLinks="2">
+					<Name>Radio Instance</Name>
+					<CLSID ClassFactory="TcPlc30">{08500001-0000-0000-F000-000000000064}</CLSID>
+					<Contexts>
+						<Context>
+							<Id>1</Id>
+							<Name>Default</Name>
+						</Context>
+					</Contexts>
+				</Instance>
+			</Project>
+			<Project GUID="{0F22E650-A954-4150-9A7B-8E699230AD27}" Name="Draairichting_FD" PrjFilePath="Draairichting_FD\Draairichting_FD.plcproj" TmcFilePath="Draairichting_FD\Draairichting_FD.tmc" ReloadTmc="true" AmsPort="858" FileArchiveSettings="#x000e" SymbolicMapping="true">
+				<Instance Id="#x085021c0" TcSmClass="TComPlcObjDef" KeepUnrestoredLinks="2">
+					<Name>Draairichting_FD Instance</Name>
+					<CLSID ClassFactory="TcPlc30">{08500001-0000-0000-F000-000000000064}</CLSID>
+					<Contexts>
+						<Context>
+							<Id>1</Id>
+							<Name>Default</Name>
+						</Context>
+					</Contexts>
+				</Instance>
+			</Project>
+			<Project GUID="{6649ADAB-7B9F-42F3-A946-A0B2D9B4CFBF}" Name="Belsignaal_FD" PrjFilePath="Belsignaal_FD\Belsignaal_FD.plcproj" TmcFilePath="Belsignaal_FD\Belsignaal_FD.tmc" ReloadTmc="true" AmsPort="859" FileArchiveSettings="#x000e" SymbolicMapping="true">
+				<Instance Id="#x08502200" TcSmClass="TComPlcObjDef" KeepUnrestoredLinks="2">
+					<Name>Belsignaal_FD Instance</Name>
+					<CLSID ClassFactory="TcPlc30">{08500001-0000-0000-F000-000000000064}</CLSID>
+					<Contexts>
+						<Context>
+							<Id>1</Id>
+							<Name>Default</Name>
+						</Context>
+					</Contexts>
+				</Instance>
+			</Project>
+			<Project GUID="{790D4C9C-8A16-45B3-B543-6A30521A822A}" Name="Parking_CO" PrjFilePath="Parking_CO\Parking_CO.plcproj" TmcFilePath="Parking_CO\Parking_CO.tmc" ReloadTmc="true" AmsPort="860" FileArchiveSettings="#x000e" SymbolicMapping="true">
+				<Instance Id="#x08502240" TcSmClass="TComPlcObjDef" KeepUnrestoredLinks="2">
+					<Name>Parking_CO Instance</Name>
+					<CLSID ClassFactory="TcPlc30">{08500001-0000-0000-F000-000000000064}</CLSID>
+					<Contexts>
+						<Context>
+							<Id>1</Id>
+							<Name>Default</Name>
+						</Context>
+					</Contexts>
+				</Instance>
+			</Project>
+		</Plc>
+	</Project>
+</TcSmProject>

@@ -1,0 +1,24 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.12">
+  <POU Name="MAIN" Id="{c58d287d-c62c-4c43-a4d1-fccc9fac33bc}" SpecialFunc="None">
+    <Declaration><![CDATA[PROGRAM MAIN
+VAR
+myFB : FB_ClickLog;
+minTime : TIME;
+END_VAR
+
+// NIET GETEST - CHATGPT GEMAAKT]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[myFB(); // Aanroepen van de FB in je programma
+minTime := myFB.GetMinimumTime; // Haal de minimale tijd op
+
+]]></ST>
+    </Implementation>
+    <LineIds Name="MAIN">
+      <LineId Id="2" Count="0" />
+      <LineId Id="11" Count="0" />
+      <LineId Id="10" Count="0" />
+      <LineId Id="8" Count="0" />
+    </LineIds>
+  </POU>
+</TcPlcObject>

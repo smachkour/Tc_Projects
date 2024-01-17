@@ -1,0 +1,38 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.12">
+  <POU Name="MAIN" Id="{3e68a8b6-88d3-4ef2-a647-52813fb546bc}" SpecialFunc="None">
+    <Declaration><![CDATA[PROGRAM MAIN
+VAR
+    bPlusButton, bMinusButton, bPlusPressed, bMinusPressed: BOOL;
+    rVoltage: REAL := 0.0; // Start voltage
+    fbPlusTimer, fbMinusTimer: TON;
+END_VAR
+
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[(*
+
+Radio (3 regels code)
+
+Ontwerp de sturing van de frequentiekeuze van een autoradio d.m.v. 2 drukknoppen ( + en - )
+zodat er een DC-spanning wordt geleverd tussen 0 en 10 V.
+Met één enkele klik verhoogt of verlaagt men de DC-spanning met 100mV 
+en met een druk langer dan 1seconde veranderd de spanning met 500mv per seconde.
+*)
+
+fbPlusTimer(IN:=bPlusButton, PT:=T#1S); IF NOT bPlusButton AND bPlusPressed THEN rVoltage := MIN(10.0, rVoltage + 0.1); bPlusPressed := FALSE; ELSIF bPlusButton AND NOT bPlusPressed THEN bPlusPressed := TRUE; END_IF; IF fbPlusTimer.Q THEN rVoltage := MIN(10.0, rVoltage + 0.5); fbPlusTimer.IN:=bPlusButton; END_IF;
+fbMinusTimer(IN:=bMinusButton, PT:=T#1s); IF NOT bMinusButton AND bMinusPressed THEN rVoltage := MAX(0.0, rVoltage - 0.1); bMinusPressed := FALSE; ELSIF bMinusButton AND NOT bMinusPressed THEN bMinusPressed := TRUE; END_IF; IF fbMinusTimer.Q THEN rVoltage := MAX(0.0, rVoltage - 0.5); fbMinusTimer.IN:=bMinusButton; END_IF;
+]]></ST>
+    </Implementation>
+    <LineIds Name="MAIN">
+      <LineId Id="2" Count="0" />
+      <LineId Id="24" Count="2" />
+      <LineId Id="23" Count="0" />
+      <LineId Id="27" Count="2" />
+      <LineId Id="18" Count="0" />
+      <LineId Id="20" Count="0" />
+      <LineId Id="39" Count="1" />
+      <LineId Id="19" Count="0" />
+    </LineIds>
+  </POU>
+</TcPlcObject>

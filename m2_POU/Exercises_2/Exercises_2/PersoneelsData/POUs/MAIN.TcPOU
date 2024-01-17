@@ -1,0 +1,40 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.12">
+  <POU Name="MAIN" Id="{5118b0bb-91ca-4adc-ad41-8f88ac1f59f2}" SpecialFunc="None">
+    <Declaration><![CDATA[PROGRAM MAIN
+VAR
+    PersonnelArray : ARRAY [1..6] OF Pers_data := [
+        (Name := 'Müller', Firstname := 'Peter', Gender := 'Male', Age := 32, Address := 'Postweg 34'),
+        (Name := 'Fossen', Firstname := 'Jo', Gender := 'Male', Age := 20, Address := 'Broekstraat 45'),
+        (Name := 'Maesen', Firstname := 'Stijn', Gender := 'Male', Age := 15, Address := 'Grote steenweg 8'),
+        (Name := 'Poesmans', Firstname := 'Benny', Gender := 'Male', Age := 72, Address := 'Veldweg 1A'),
+        (Name := 'Paque', Firstname := 'Stéphanie', Gender := 'Female', Age := 42, Address := 'Tongersesteenweg 456'),
+        (Name := 'Dybek', Firstname := 'Isolde', Gender := 'Female', Age := 55, Address := 'Slagerijstraat 6')
+    ];
+	
+	myData : Pers_data; // Vul myData met de gewenste waarden
+    searchString : STRING := 'Stijn'; // De te zoeken string
+    result : BOOL; // Resultaat van de zoekactie
+    checkStringFB : FB_CheckString; // Aanmaken van de FB-instance
+END_VAR
+
+// NOG NIET OPGELOST!!!]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[
+// Vul myData met gegevens
+
+checkStringFB.data := myData;
+checkStringFB.searchString := searchString;
+
+// Roep de FB aan
+checkStringFB();
+
+// Haal het resultaat op
+result := checkStringFB.found;]]></ST>
+    </Implementation>
+    <LineIds Name="MAIN">
+      <LineId Id="21" Count="9" />
+      <LineId Id="2" Count="0" />
+    </LineIds>
+  </POU>
+</TcPlcObject>

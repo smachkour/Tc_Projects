@@ -1,0 +1,28 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.12">
+  <POU Name="CheckRangeInt" Id="{671a4ee4-995e-428d-a46f-3e1a866399a6}" SpecialFunc="None">
+    <Declaration><![CDATA[FUNCTION CheckRangeInt : INT
+VAR_INPUT
+    valueint : INT;
+END_VAR
+
+VAR CONSTANT
+lowerBound : INT := 0;
+upperBound : INT := 32767;
+END_VAR]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[// Controleer of de waarde binnen het bereik ligt en corrigeer deze indien nodig
+IF valueint < lowerBound THEN
+    CheckRangeInt := lowerBound;
+ELSIF valueint > upperBound THEN
+    CheckRangeInt := upperBound;
+ELSE
+    CheckRangeInt := valueint;
+END_IF]]></ST>
+    </Implementation>
+    <LineIds Name="CheckRangeInt">
+      <LineId Id="28" Count="6" />
+      <LineId Id="7" Count="0" />
+    </LineIds>
+  </POU>
+</TcPlcObject>

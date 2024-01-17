@@ -1,0 +1,73 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.12">
+  <POU Name="MAIN" Id="{6fa2e5de-9c8e-461e-98c0-4ab1c3a49384}" SpecialFunc="None">
+    <Declaration><![CDATA[PROGRAM MAIN
+VAR
+   fbBlinker1: TOF; // Timer voor lampje 1
+   fbBlinker2: TOF; // Timer voor lampje 2
+   nVoltage: REAL; // Ingangsspanning
+   
+   	Waarde: BYTE;
+	potentiometer: INT;
+   
+   
+	lamp1: BOOL;
+	lamp2: BOOL;
+END_VAR]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[(*
+Knipperlicht (2 regels)
+
+Schrijf een programma waarbij een lampje knippert aan een frequentie van 1 Hz – 50% Duty Cycle.
+
+Uitbreiding: zorg dat de frequentie instelbaar is via de potentiometer met 500ms als minimum en 10s als maximum waarde.
+ <br>Maak ook hier gebruik van de conversion operators. 
+
+Uitbreiding: Ontwerp een knipperlamp met 4 verschillende knipperfrequenties.
+De frequentie stijgt naarmate het analoge ingangsspanning vanuit de potentiometer stijgt. 
+Bij een ingangsspanning lager dan 2V knippert het lampje met een frequentie van 0.5Hz,
+tussen 2 en 4V 1 Hz, tussen 4 en 6V 2HZ en boven de 6V moeten er 2 lampjes om beurten knipperen met een frequentie van 5Hz.
+*)
+ 
+(*
+Potentiometer inlezen en omzetten naar spanning (maximaal 2 regels)
+*)
+Waarde := LREAL_TO_BYTE(100 * (potentiometer / 32767.0)); // Scaled value from 0 to 100
+nVoltage := (10.0 * potentiometer) / 32767.0; // Voltage value from 0V to 10V
+
+IF nVoltage < 2 THEN
+   fbBlinker1(IN:=NOT fbBlinker1.Q, PT:=T#1s); // 0.5 Hz
+ELSIF nVoltage < 4 THEN
+   fbBlinker1(IN:=NOT fbBlinker1.Q, PT:=T#500ms); // 1 Hz
+ELSIF nVoltage < 6 THEN
+   fbBlinker1(IN:=NOT fbBlinker1.Q, PT:=T#250ms); // 2 Hz
+ELSE
+   fbBlinker1(IN:=NOT fbBlinker1.Q, PT:=T#100ms); // 5 Hz voor lampje 1
+   fbBlinker2(IN:=NOT fbBlinker2.Q, PT:=T#100ms); // 5 Hz voor lampje 2, alternerend
+END_IF
+
+lamp1 := fbBlinker1.Q;
+
+lamp2 := (nVoltage >= 6) AND fbBlinker2.Q; // Lampje 2 enkel boven 6V
+
+]]></ST>
+    </Implementation>
+    <LineIds Name="MAIN">
+      <LineId Id="2" Count="0" />
+      <LineId Id="8" Count="4" />
+      <LineId Id="14" Count="0" />
+      <LineId Id="13" Count="0" />
+      <LineId Id="7" Count="0" />
+      <LineId Id="15" Count="2" />
+      <LineId Id="6" Count="0" />
+      <LineId Id="27" Count="0" />
+      <LineId Id="58" Count="3" />
+      <LineId Id="54" Count="0" />
+      <LineId Id="28" Count="12" />
+      <LineId Id="50" Count="0" />
+      <LineId Id="41" Count="0" />
+      <LineId Id="52" Count="0" />
+      <LineId Id="20" Count="0" />
+    </LineIds>
+  </POU>
+</TcPlcObject>

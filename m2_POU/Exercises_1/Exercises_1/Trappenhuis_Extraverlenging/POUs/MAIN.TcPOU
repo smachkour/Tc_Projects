@@ -1,0 +1,42 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.12">
+  <POU Name="MAIN" Id="{4560d8a0-e22b-4a93-8070-7ae8dfd8746a}" SpecialFunc="None">
+    <Declaration><![CDATA[PROGRAM MAIN
+VAR
+	// Ingangen
+	bDK1               AT %I*: BOOL;
+	bDK2               AT %I*: BOOL;
+	bDK3               AT %I*: BOOL;
+	bDK4               AT %I*: BOOL;
+	bDK5               AT %I*: BOOL;
+	bDK6               AT %I*: BOOL;
+	
+	// Uitgangen 
+	lamp				AT %Q*: BOOL;
+	
+	// Timer
+	Timer1: TOF;
+END_VAR]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[(*
+Trappenhuisautomaat met extra verlenging (1 regel)
+
+In een appartementsgebouw staan in de traphal op de verschillende verdiepingen in totaal 6 drukknoppen. 
+Als men één van de drukknoppen bedient gaat de verlichting branden. 
+De verlichting blijft 3min. branden - tijdens de test gebruikt men 3s - vooraleer deze vanzelf uitschakelt.
+Bij iedere bediening van een drukknop zal de tijd terug beginnen te lopen vanaf 0 en blijven de lampen branden tot de ingestelde tijd is afgelopen.
+*)
+
+Timer1(IN:=bDK1 OR bDK2 OR bDK3 OR bDK4 OR bDK5 OR bDK6 ,PT:=T#3s , Q=> lamp, ET=> );]]></ST>
+    </Implementation>
+    <LineIds Name="MAIN">
+      <LineId Id="21" Count="0" />
+      <LineId Id="26" Count="2" />
+      <LineId Id="30" Count="1" />
+      <LineId Id="25" Count="0" />
+      <LineId Id="24" Count="0" />
+      <LineId Id="22" Count="0" />
+      <LineId Id="2" Count="0" />
+    </LineIds>
+  </POU>
+</TcPlcObject>
